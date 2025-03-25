@@ -23,13 +23,13 @@ export default defineConfig({
                 description: "Cypress Automated Test run",
                 complete: true,
               },
-              environment: 'prod',
-            },
-            framework: {
+              //environment: 'prod',
+            //},
+            /*framework: {
                 cypress: {
                     screenshotsFolder: 'cypress/screenshots',
                 }
-            }
+            }*/
           
     },
   },
