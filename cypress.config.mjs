@@ -7,20 +7,19 @@ export default defineConfig({
   reporterOptions: {
     reporterEnabled: "cypress-qase-reporter",
     cypressQaseReporterReporterOptions: {
-      /*
-            // You can define the reporter options here, or in a separate `qase.config.json` file.
+      
 
-            mode: 'testops',
-            debug: false,
-            testops: {
-              api: {
-                token: 'api_key',
-              },
-              project: 'project_code',
-              uploadAttachments: true,
+            //mode: 'testops',
+            //debug: false,
+            //testops: {
+              //api: {
+                //token: 'api_key',
+              //},
+              //project: 'project_code',
+              //uploadAttachments: true,
               run: {
               //  id: 1,
-                title: "Your test run title",
+                title: `Test Run with GitHub Run ID: ${github.run_id}`,
                 description: "Cypress Automated Test run",
                 complete: true,
               },
@@ -31,7 +30,7 @@ export default defineConfig({
                     screenshotsFolder: 'cypress/screenshots',
                 }
             }
-          */
+          
     },
   },
   video: true,
