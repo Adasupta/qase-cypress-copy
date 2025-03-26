@@ -43,9 +43,6 @@ jobs:
           milestone: 123
           plan: 321
 
-      - name: Set Qase Run Title
-        run: echo "QASE_TESTOPS_RUN_TITLE=Manual API trigger!" >> $GITHUB_ENV
-
       - name: Run tests
         env:
           QASE_TESTOPS_PROJECT: ${{ env.QASE_PROJECT }}
