@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  QASE_PROJECT: ${{ vars.QASE_PROJECT }}  # Use project from variables
+
 jobs:
   run-tests:
     runs-on: ubuntu-latest
@@ -31,7 +34,6 @@ jobs:
         id: qase-run-create
         with:
           token: ${{ secrets.QASE_TOKEN }}
-          project: CODE
           title: Manual API trigger
           description: |
             Test Run Description  
