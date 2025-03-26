@@ -30,9 +30,9 @@ jobs:
         run: npm install
 
       - name: Create a Qase test run with GitHub Link
-        uses: qase-tms/qase-action@v2
+        uses: qase-tms/gh-actions/run-create@v2
+        id: qase-run-create
         with:
-          command: run-create
           token: ${{ secrets.QASE_TOKEN }}
           project: ${{ env.QASE_PROJECT }}
           title: Manual API trigger!
@@ -42,7 +42,6 @@ jobs:
           environment: my-env
           milestone: 123
           plan: 321
-        id: qase-run-create
 
       - name: Set Qase Run Title
         run: echo "QASE_TESTOPS_RUN_TITLE=Manual API trigger!" >> $GITHUB_ENV
@@ -55,11 +54,10 @@ jobs:
         run: npm test
 
       - name: Complete a Qase test run
-        uses: qase-tms/qase-action@v2
+        uses: qase-tms/gh-actions/run-complete@v2
+        id: complete
+        if: always() && steps.qase-run-create.result == 'success'
         with:
-          command: run-complete
           token: ${{ secrets.QASE_TOKEN }}
           project: ${{ env.QASE_PROJECT }}
           id: ${{ steps.qase-run-create.outputs.id }}
-        if: always() && steps.qase-run-create.result == 'success'
-        id: complete
