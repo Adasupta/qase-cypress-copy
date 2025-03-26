@@ -18,15 +18,12 @@ export default defineConfig({
         //project: 'project_code',
         //uploadAttachments: true,
 
-      /*run: {
+      run: {
         // id: 1,
-
-        // Generate the same link that would be created by the GitHub Action
-        title: `Test Run - Qase Link: ${process.env.QASE_API_BASE_URL}/apps/external_link/${process.env.QASE_TESTOPS_PROJECT}/github-app/?run_id=${process.env.QASE_TESTOPS_RUN_ID}&external_run_id=${process.env.GITHUB_RUN_ID}`,
-
-        description: "Cypress Automated Test run",
+        title: "Regress run",  // Title can stay auto-generated
+        description: process.env.QASE_TESTOPS_RUN_DESCRIPTION || "Regress run description",
         complete: true,
-      },*/
+      },
       //environment: 'prod',
       //},
       /*framework: {
@@ -42,12 +39,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       qasePlugin(on, config);
       qaseMetadata(on);
-
-      // Ensure the dynamic Qase link is passed to the environment
-      config.env.QASE_TESTOPS_RUN_TITLE = `Test Run - Qase Link: ${process.env.QASE_API_BASE_URL}/apps/external_link/${process.env.QASE_TESTOPS_PROJECT}/github-app/?run_id=${process.env.QASE_TESTOPS_RUN_ID}&external_run_id=${process.env.GITHUB_RUN_ID}`;
-
       return config;
     },
   },
 });
-
