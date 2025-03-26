@@ -1,7 +1,7 @@
 import { qase } from "cypress-qase-reporter/mocha";
 
 describe("Example: comment.cy.js", () => {
-  it("A test with qase.comment()", () => {
+  it("A test 123 with qase.comment()", () => {
     /*
      * Please note, this comment is added to a Result, not to the Test case.
      */
