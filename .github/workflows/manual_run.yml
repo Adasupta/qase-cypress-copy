@@ -30,10 +30,11 @@ jobs:
         run: npm install
 
       - name: Create a Qase test run with GitHub Link
-        uses: qase-tms/gh-actions/run-create@v2  # Added version 'v2'
-        id: qase-run-create
+        uses: qase-tms/gh-actions@v2
         with:
+          command: run-create
           token: ${{ secrets.QASE_TOKEN }}
+          project: ${{ env.QASE_PROJECT }}
           title: Manual API trigger!
           description: |
             Test Run Description  
@@ -41,22 +42,24 @@ jobs:
           environment: my-env
           milestone: 123
           plan: 321
-          
+        id: qase-run-create
+
       - name: Set Qase Run Title
-        run: echo "QASE_TESTOPS_RUN_TITLE=Manual API trigger" >> $GITHUB_ENV
+        run: echo "QASE_TESTOPS_RUN_TITLE=Manual API trigger!" >> $GITHUB_ENV
 
       - name: Run tests
         env:
-          QASE_TESTOPS_PROJECT: CODE
+          QASE_TESTOPS_PROJECT: ${{ env.QASE_PROJECT }}
           QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TOKEN }}
           QASE_TESTOPS_RUN_ID: ${{ steps.qase-run-create.outputs.id }}
         run: npm test
 
       - name: Complete a Qase test run
-        uses: qase-tms/gh-actions/run-complete@v2  # Added version 'v2'
-        id: complete
-        if: always() && steps.qase-run-create.result == 'success'
+        uses: qase-tms/gh-actions@v2
         with:
+          command: run-complete
           token: ${{ secrets.QASE_TOKEN }}
-          project: CODE
+          project: ${{ env.QASE_PROJECT }}
           id: ${{ steps.qase-run-create.outputs.id }}
+        if: always() && steps.qase-run-create.result == 'success'
+        id: complete
