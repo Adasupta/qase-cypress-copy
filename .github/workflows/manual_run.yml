@@ -1,0 +1,57 @@
+name: Qase Test Run with GitHub Link
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create a Qase test run with GitHub Link
+        uses: qase-tms/gh-actions/run-create@v2  # Added version 'v2'
+        id: qase-run-create
+        with:
+          token: ${{ secrets.QASE_TOKEN }}
+          project: CODE
+          title: Manual API trigger
+          description: |
+            Test Run Description  
+            [GitHub Action Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          environment: my-env
+          milestone: 123
+          plan: 321
+
+      - name: Run tests
+        env:
+          QASE_TESTOPS_PROJECT: CODE
+          QASE_TESTOPS_API_TOKEN: ${{ secrets.QASE_TOKEN }}
+          QASE_TESTOPS_RUN_ID: ${{ steps.qase-run-create.outputs.id }}
+        run: npm test
+
+      - name: Complete a Qase test run
+        uses: qase-tms/gh-actions/run-complete@v2  # Added version 'v2'
+        id: complete
+        if: always() && steps.qase-run-create.result == 'success'
+        with:
+          token: ${{ secrets.QASE_TOKEN }}
+          project: CODE
+          id: ${{ steps.qase-run-create.outputs.id }}
