@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Create a Qase test run with GitHub Link
-        uses: qase-tms/gh-actions@v2
+        uses: qase-tms/qase-action@v2
         with:
           command: run-create
           token: ${{ secrets.QASE_TOKEN }}
@@ -55,7 +55,7 @@ jobs:
         run: npm test
 
       - name: Complete a Qase test run
-        uses: qase-tms/gh-actions@v2
+        uses: qase-tms/qase-action@v2
         with:
           command: run-complete
           token: ${{ secrets.QASE_TOKEN }}
