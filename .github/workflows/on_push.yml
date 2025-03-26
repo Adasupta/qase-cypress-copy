@@ -34,12 +34,12 @@ jobs:
         run: |
           npm install
 
-      - name: Get run title
-        id: set_title
+      - name: Set Qase Run Title with Link
         run: |
           BRANCH_NAME=${GITHUB_REF##*/}
-          COMMIT_MESSAGE=$(git log -1 --pretty=format:%s)
-          echo "QASE_TESTOPS_RUN_TITLE=qase-cypress@$BRANCH_NAME: $COMMIT_MESSAGE" >> $GITHUB_ENV
+          QASE_RUN_LINK="${QASE_API_BASE_URL}/apps/external_link/${QASE_TESTOPS_PROJECT}/github-app/?run_id=${QASE_TESTOPS_RUN_ID}&external_run_id=${GITHUB_RUN_ID}"
+          echo "QASE_TESTOPS_RUN_TITLE=qase-cypress@$BRANCH_NAME - $QASE_RUN_LINK" >> $GITHUB_ENV
+
 
       - name: Run Cypress tests
         run: |
