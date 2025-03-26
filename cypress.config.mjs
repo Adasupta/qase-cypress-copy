@@ -20,7 +20,7 @@ export default defineConfig({
 
       run: {
         // id: 1,
-        title: process.env.QASE_TESTOPS_RUN_TITLE || "Default Title"
+        title: process.env.QASE_TESTOPS_RUN_TITLE || "Default Title",
         description: process.env.QASE_TESTOPS_RUN_DESCRIPTION || "Regress run description",
         complete: true,
       },
