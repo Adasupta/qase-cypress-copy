@@ -34,7 +34,7 @@ jobs:
         id: qase-run-create
         with:
           token: ${{ secrets.QASE_TOKEN }}
-          title: Manual API trigger
+          title: Manual API trigger!
           description: |
             Test Run Description  
             [GitHub Action Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
