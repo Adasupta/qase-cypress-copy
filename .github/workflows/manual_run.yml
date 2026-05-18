@@ -1,4 +1,4 @@
-name: Qase Test Run with GitHub Link
+name: Qase Run with GitHub Link
 
 on:
   push:
